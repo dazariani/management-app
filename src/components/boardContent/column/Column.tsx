@@ -38,7 +38,6 @@ function Column(props: Props) {
 
   useEffect(() => {
     if (!modalOn) {
-      // console.log("set empty param");
       setSearchParams({});
     }
   }, [modalOn]);

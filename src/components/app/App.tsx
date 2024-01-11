@@ -94,8 +94,6 @@ function App() {
     }`;
   }, [appTheme]);
 
-  console.log("this is App");
-
   return (
     <>
       <BrowserRouter>
