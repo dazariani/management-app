@@ -16,6 +16,7 @@ import Sidebar from "../sidebar/Sidebar";
 import useWindowWidth from "../../useWindowWidth";
 import ShowSidebarBtn from "../sidebar/showSidebarBtn/ShowSidebarBtn";
 import { LightColors, DarkColors } from "./app-types";
+import { BrowserRouter } from "react-router-dom";
 
 const setLocalStorageBoardList = () => {
   let localList = localStorage.getItem("boardList");
@@ -93,64 +94,70 @@ function App() {
     }`;
   }, [appTheme]);
 
+  console.log("this is App");
+
   return (
     <>
-      <Context.Provider
-        value={{
-          boardData,
-          setBoardData,
-          isActive,
-          setIsActive,
-          boardListOn,
-          setBoardListOn,
-          appTheme,
-          setAppTheme,
-          activeBoardInd,
-          setActiveBoardInd,
-          currentTask,
-          setCurrentTask,
-          modalOn,
-          setModalOn,
-          addNewTask,
-          setAddNewTask,
-          editBoardOn,
-          setEditBoardOn,
-          deleteOn,
-          setDeleteOn,
-          addNewBoard,
-          setAddNewBoard,
-          boardOptionsOn,
-          setBoardOptionsOn,
-          sidebarOn,
-          setSidebarOn,
-          width,
-        }}
-      >
-        <ThemeProvider theme={appTheme === "bright" ? LightColors : DarkColors}>
-          <HelmetProvider>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap"
-              rel="stylesheet"
-            />
-          </HelmetProvider>
-          <GlobalStyles />
-          <PageMask />
-          {width > 768 && <ShowSidebarBtn />}
-          {modalOn && <ModalContainer />}
-          <Container>
-            <Navbar />
+      <BrowserRouter>
+        <Context.Provider
+          value={{
+            boardData,
+            setBoardData,
+            isActive,
+            setIsActive,
+            boardListOn,
+            setBoardListOn,
+            appTheme,
+            setAppTheme,
+            activeBoardInd,
+            setActiveBoardInd,
+            currentTask,
+            setCurrentTask,
+            modalOn,
+            setModalOn,
+            addNewTask,
+            setAddNewTask,
+            editBoardOn,
+            setEditBoardOn,
+            deleteOn,
+            setDeleteOn,
+            addNewBoard,
+            setAddNewBoard,
+            boardOptionsOn,
+            setBoardOptionsOn,
+            sidebarOn,
+            setSidebarOn,
+            width,
+          }}
+        >
+          <ThemeProvider
+            theme={appTheme === "bright" ? LightColors : DarkColors}
+          >
+            <HelmetProvider>
+              <link rel="preconnect" href="https://fonts.googleapis.com" />
+              <link rel="preconnect" href="https://fonts.gstatic.com" />
+              <link
+                href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap"
+                rel="stylesheet"
+              />
+            </HelmetProvider>
+            <GlobalStyles />
+            <PageMask />
+            {width > 768 && <ShowSidebarBtn />}
+            {modalOn && <ModalContainer />}
+            <Container>
+              <Navbar />
 
-            <BarContentBox>
-              {width > 768 && <Sidebar />}
-              <BoardContent />
-            </BarContentBox>
+              <BarContentBox>
+                {width > 768 && <Sidebar />}
+                <BoardContent />
+              </BarContentBox>
 
-            <BoardList />
-          </Container>
-        </ThemeProvider>
-      </Context.Provider>
+              <BoardList />
+            </Container>
+          </ThemeProvider>
+        </Context.Provider>
+      </BrowserRouter>
     </>
   );
 }

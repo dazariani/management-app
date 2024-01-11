@@ -35,9 +35,9 @@ function PageMask() {
       onClick={() => {
         setBoardListOn(false);
         setAddNewTask(false);
-        setModalOn(false);
         setEditBoardOn(false);
         setDeleteOn(false);
+        setModalOn(false);
       }}
       $boardListOn={boardListOn}
       $modalOn={modalOn}

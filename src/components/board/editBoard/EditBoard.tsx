@@ -20,6 +20,7 @@ import {
   DeleteIcon,
   ColumnInputWrapper,
 } from "./editBoard-styles";
+import boardDataType from "../../../boardData-types";
 
 const columnsTemplateList = ["Todo", "Doing"];
 
@@ -37,6 +38,9 @@ function EditBoard() {
 
   const [firstInd, setFirstInd] = useState<number | null>(null);
   const [secondInd, setSecondInd] = useState<number | null>(null);
+  const [tempBoardData] = useState<boardDataType>(
+    JSON.parse(JSON.stringify(boardData))
+  );
 
   const {
     register,
@@ -62,11 +66,13 @@ function EditBoard() {
     control,
   });
 
-  let tempBoardData = [...boardData];
+  // Bad practice to create temp copy of state such way as appears. Better to save it in temp state (see above) ;)
+
+  /* let tempBoardData = [...boardData];  OR
+  let tempBoardData: boardDataType = JSON.parse(JSON.stringify(boardData)); */
 
   // Remove button when editting board
   const handleColumnDeleteForEdit = (ind: number) => {
-    remove(ind);
     // Remove column
     tempBoardData.forEach((board, boardInd) => {
       if (boardInd === activeBoardInd) {
@@ -77,6 +83,7 @@ function EditBoard() {
         });
       }
     });
+    remove(ind);
   };
 
   // Remove button when adding new board
@@ -185,7 +192,7 @@ function EditBoard() {
       // Edit board and add new board cases
       !addNewBoard ? addNewColumn(data) : handleAddNewBoard(data);
       // Set data
-      setBoardData(tempBoardData);
+      setBoardData([...tempBoardData]);
       setEditBoardOn(false);
       setModalOn(false);
       setAddNewBoard(false);
